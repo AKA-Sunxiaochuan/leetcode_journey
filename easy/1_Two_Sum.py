@@ -24,3 +24,6 @@ class Solution:
                 res_dict[minus] = i
             else:
                 return [i, res_dict[minus]]
+
+
+# 1 two sum finished, not understand totally yet
