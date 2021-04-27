@@ -1,55 +1,64 @@
 """
-Given an integer x, return true if x is palindrome integer.
+20. Valid Parentheses
+Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
 
-An integer is a palindrome when it reads the same backward as forward. For example, 121 is palindrome while 123 is not.
+An input string is valid if:
 
-
+Open brackets must be closed by the same type of brackets.
+Open brackets must be closed in the correct order.
 
 Example 1:
 
-Input: x = 121
+Input: s = "()"
 Output: true
 Example 2:
 
-Input: x = -121
-Output: false
-Explanation: From left to right, it reads -121. From right to left, it becomes 121-. Therefore it is not a palindrome.
+Input: s = "()[]{}"
+Output: true
 Example 3:
 
-Input: x = 10
+Input: s = "(]"
 Output: false
-Explanation: Reads 01 from right to left. Therefore it is not a palindrome.
 Example 4:
 
-Input: x = -101
+Input: s = "([)]"
 Output: false
+Example 5:
 
+Input: s = "{[]}"
+Output: true
+ 
 
 Constraints:
 
--231 <= x <= 231 - 1
+1 <= s.length <= 104
+s consists of parentheses only '()[]{}'.
+
+https://leetcode-cn.com/problems/valid-parentheses
 """
 
+
 class Solution:
-    def isPalindrome(self, x):
-        if x < 0:
-            return False
+    def isValid(self, s):
+        dict_ = {")": "(", "]": "[", "}": "{"}
 
+        lst = list(s)
+        stack_ = [lst[0]]
+
+        for i in lst[1:]:
+            stack_.append(i)
+
+            if len(stack_) > 1:
+                if i == ")" or i == "]" or i == "}":
+                    if i in dict_:
+                        j = dict_[i]
+
+                    if j == stack_[-2]:
+                        stack_.pop()
+                        stack_.pop()
+
+        if len(stack_) == 0:
+            return True
         else:
-            str_x = str(x)
-            length = len(str_x)
-
-            count = 0
-            for i in range(length):
-                if str_x[i] != str_x[-(i+1)]:
-                    count += 1
-
-            if count != 0:
-                return False
-            else:
-                return True
-
-
-
-
+            return False
 
